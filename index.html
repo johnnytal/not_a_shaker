@@ -11,8 +11,10 @@
 	    <script type="text/javascript" src="js/gui.js"></script>
 	</head>
 	<body style="margin: 0">
-		<input type="file" id="audio_file" accept="audio/*" onchange="handleFiles(this.files)">
-		<audio id="newfrontSfx"/>
+		<input type="file" id="audio_file_front" accept="audio/*" onchange="handleFileFront(this.files)"><span>front</span><br/>
+		<input type="file" id="audio_file_back" accept="audio/*" onchange="handleFileBack(this.files)"><span>back</span>
+		<audio id="newFrontSfx"/>
+		<audio id="newBackSfx"/>
 		<div></div>
 	</body>
 </html> 

@@ -100,12 +100,13 @@ function readAcc(event){
 			modeAbsAngle && angle > min_abs_angle_front){
 				
 				if (!modeOneWay || (modeOneWay && last_hit == 'BACK')){
-
+					var vol = Math.abs(roundIt(lastfiveAccels[lastfiveAccels.length-1]));
+					
 					try{
-						newfrontSfx.volume = roundIt(lastfiveAccels[lastfiveAccels.length-1]);
-						newfrontSfx.play();
+						newFrontSfx.volume = vol;
+						newFrontSfx.play();
 					}catch(e){
-						frontSfx.volume = roundIt(lastfiveAccels[lastfiveAccels.length-1]);
+						frontSfx.volume = vol;
 						frontSfx.play();
 					}
 					
@@ -123,8 +124,15 @@ function readAcc(event){
 			modeAbsAngle && angle < min_abs_angle_back){
 			
 				if (!modeOneWay || (modeOneWay && last_hit == 'FRONT')){
-
-					backSfx.play();
+					var vol = Math.abs(roundIt(lastfiveAccels[lastfiveAccels.length-1]));
+					
+					try{
+						newBackSfx.volume = vol;
+						newBackSfx.play();
+					}catch(e){
+						backSfx.volume = vol;
+						backSfx.play();
+					}
 					
 					last_hit = 'BACK';
 					flash(BACK_COLOR);
@@ -179,7 +187,7 @@ function roundIt(_num){
 	return Math.round(_num * 1000) / 1000;
 }
 
-function handleFiles(fileObj) {
+function handleFileFront(fileObj) {
 	var fileReader  = new FileReader;
 	
 	fileReader.onload = function(){
@@ -189,7 +197,20 @@ function handleFiles(fileObj) {
 	
 	url = URL.createObjectURL(fileObj[0]); 
 	
-	newfrontSfx.src = url;
+	newFrontSfx.src = url;
+}
+
+function handleFileBack(fileObj) {
+	var fileReader  = new FileReader;
+	
+	fileReader.onload = function(){
+	   var arrayBuffer = this.result;
+	};
+	fileReader.readAsArrayBuffer(fileObj[0]);
+	
+	url = URL.createObjectURL(fileObj[0]); 
+	
+	newBackSfx.src = url;
 }
 
 function initPlugIns(){
