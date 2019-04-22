@@ -100,8 +100,14 @@ function readAcc(event){
 			modeAbsAngle && angle > min_abs_angle_front){
 				
 				if (!modeOneWay || (modeOneWay && last_hit == 'BACK')){
-					frontSfx.volume = roundIt(lastfiveAccels[lastfiveAccels.length-1]);
-					frontSfx.play();
+
+					try{
+						newfrontSfx.volume = roundIt(lastfiveAccels[lastfiveAccels.length-1]);
+						newfrontSfx.play();
+					}catch(e){
+						frontSfx.volume = roundIt(lastfiveAccels[lastfiveAccels.length-1]);
+						frontSfx.play();
+					}
 					
 					last_hit = 'FRONT';
 					flash(FRONT_COLOR);	
@@ -117,6 +123,7 @@ function readAcc(event){
 			modeAbsAngle && angle < min_abs_angle_back){
 			
 				if (!modeOneWay || (modeOneWay && last_hit == 'FRONT')){
+
 					backSfx.play();
 					
 					last_hit = 'BACK';
@@ -182,7 +189,7 @@ function handleFiles(fileObj) {
 	
 	url = URL.createObjectURL(fileObj[0]); 
 	
-	frontSfx.src = url;
+	newfrontSfx.src = url;
 }
 
 function initPlugIns(){
