@@ -36,7 +36,7 @@ var shakerMain = function(game){
 	modeAbsAngle = false;
 	modeAbsAccel = false;
 	
-	frontSound = null;
+	frontSfx = null;
 };
 
 shakerMain.prototype = {
@@ -90,7 +90,7 @@ function readAcc(event){
 	
 	aveAccel = roundIt((accelX + accelY + accelZ) / 3);
 
-	if (!frontSound.isPlaying && !backSfx.isPlaying && reset){
+	if (!frontSfx.isPlaying && !backSfx.isPlaying && reset){
 
 		if (
 			!modeAbsAccel && Math.abs(lastfiveAccels[lastfiveAccels.length-1] - lastfiveAccels[lastfiveAccels.length-2]) > min_accel_front ||
@@ -100,8 +100,8 @@ function readAcc(event){
 			modeAbsAngle && angle > min_abs_angle_front){
 				
 				if (!modeOneWay || (modeOneWay && last_hit == 'BACK')){
-					frontSound.volume = roundIt(lastfiveAccels[lastfiveAccels.length-1]);
-					frontSound.play();
+					frontSfx.volume = roundIt(lastfiveAccels[lastfiveAccels.length-1]);
+					frontSfx.play();
 					
 					last_hit = 'FRONT';
 					flash(FRONT_COLOR);	
@@ -182,7 +182,7 @@ function handleFiles(fileObj) {
 	
 	url = URL.createObjectURL(fileObj[0]); 
 	
-	frontSound.src = url;
+	frontSfx.src = url;
 }
 
 function initPlugIns(){
