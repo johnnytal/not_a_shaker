@@ -110,6 +110,7 @@ function readAcc(event){
 				if (!modeOneWay || (modeOneWay && last_hit == 'BACK')){
 					last_hit = 'FRONT';
 					
+					newFrontSfx.stop();
 					newFrontSfx.play();
 					flash(FRONT_COLOR);	
 				}	
@@ -126,6 +127,7 @@ function readAcc(event){
 				if (!modeOneWay || (modeOneWay && last_hit == 'FRONT')){
 					last_hit = 'BACK';
 					
+					newBackSfx.stop();
 					newBackSfx.play();
 					flash(BACK_COLOR);
 				}
