@@ -188,5 +188,5 @@ function handleFiles(fileObj) {
 function initPlugIns(){
     try{window.plugins.insomnia.keepAwake();} catch(e){} // keep awake
     try{StatusBar.hide();} catch(e){} // hide status bar
-    try{window.androidVolume.setMusic(20, false);} catch(e){} // max media volume
+    try{window.androidVolume.setMusic(10, false);} catch(e){} // max media volume
 }

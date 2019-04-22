@@ -1,4 +1,4 @@
-window.onload = start;
+//window.onload = start;
 document.addEventListener("deviceready", start, false);
 
 function start(){
