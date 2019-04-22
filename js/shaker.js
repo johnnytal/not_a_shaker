@@ -87,6 +87,15 @@ function readAcc(event){
 	}
 	
 	aveAccel = roundIt((accelX + accelY + accelZ) / 3);
+	
+	var vol = Math.abs(aveAccel / 5);
+	if (vol < 0.3){
+		vol = 0.3;
+	}
+	else if (vol > 1){
+		vol = 1;
+	}
+	
 
 	if (!frontSfx.isPlaying && !backSfx.isPlaying && reset){
 
@@ -98,11 +107,11 @@ function readAcc(event){
 			modeAbsAngle && angle > min_abs_angle_front){
 				
 				if (!modeOneWay || (modeOneWay && last_hit == 'BACK')){
-					var vol = Math.abs(roundIt(lastfiveAccels[lastfiveAccels.length-1]));
+					
 					last_hit = 'FRONT';
 					
 					try{
-						//newFrontSfx.volume = vol;
+						newFrontSfx.volume = vol;
 						newFrontSfx.play();
 					}catch(e){
 						debugTxtLastHit.text = 'Last hit: ' + last_hit + ' \n error: ' + e;
@@ -126,7 +135,7 @@ function readAcc(event){
 					last_hit = 'BACK';
 					
 					try{
-						//newBackSfx.volume = vol;
+						newBackSfx.volume = vol;
 						newBackSfx.play();
 					}catch(e){
 						debugTxtLastHit.text = 'Last hit: ' + last_hit + ' \n error: ' + e;
