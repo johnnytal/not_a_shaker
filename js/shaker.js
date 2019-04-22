@@ -35,6 +35,8 @@ var shakerMain = function(game){
 	modeOneWay = false;
 	modeAbsAngle = false;
 	modeAbsAccel = false;
+	
+	vol = 1;
 };
 
 shakerMain.prototype = {
@@ -88,14 +90,13 @@ function readAcc(event){
 	
 	aveAccel = roundIt((accelX + accelY + accelZ) / 3);
 	
-	var vol = Math.abs(aveAccel / 5);
+	vol = Math.abs(aveAccel / 5);
 	if (vol < 0.3){
 		vol = 0.3;
 	}
 	else if (vol > 1){
 		vol = 1;
 	}
-	
 
 	if (!frontSfx.isPlaying && !backSfx.isPlaying && reset){
 
@@ -107,17 +108,9 @@ function readAcc(event){
 			modeAbsAngle && angle > min_abs_angle_front){
 				
 				if (!modeOneWay || (modeOneWay && last_hit == 'BACK')){
-					
 					last_hit = 'FRONT';
 					
-					try{
-						newFrontSfx.volume = vol;
-						newFrontSfx.play();
-					}catch(e){
-						debugTxtLastHit.text = 'Last hit: ' + last_hit + ' \n error: ' + e;
-					}
-					
-					
+					newFrontSfx.play();
 					flash(FRONT_COLOR);	
 				}	
 			}
@@ -131,16 +124,9 @@ function readAcc(event){
 			modeAbsAngle && angle < min_abs_angle_back){
 			
 				if (!modeOneWay || (modeOneWay && last_hit == 'FRONT')){
-					var vol = Math.abs(roundIt(lastfiveAccels[lastfiveAccels.length-1]));
 					last_hit = 'BACK';
 					
-					try{
-						newBackSfx.volume = vol;
-						newBackSfx.play();
-					}catch(e){
-						debugTxtLastHit.text = 'Last hit: ' + last_hit + ' \n error: ' + e;
-					}
-					
+					newBackSfx.play();
 					flash(BACK_COLOR);
 				}
 			}
@@ -164,6 +150,8 @@ function flash(_color){
 	resetTimeOut = setTimeout(function(){
 		reset = true;
 	}, min_time);
+	
+	debugTxtLastHit.text = last_hit + ' | ' + vol;
 	
 	debugTxtHitAngle.text = 'Angle at hit: ' + angle;
 	debugTxtHitAccel.text = 'Accel at hit: ' + aveAccel + '\n(X: ' + accelX + ',  Y: ' + accelY + '\n,  Z: ' + accelZ + ')';;
