@@ -90,11 +90,8 @@ function readAcc(event){
 	
 	aveAccel = roundIt((accelX + accelY + accelZ) / 3);
 	
-	vol = Math.abs(aveAccel / 5);
-	if (vol < 0.3){
-		vol = 0.3;
-	}
-	else if (vol > 1){
+	vol = roundIt(Math.abs(aveAccel / 5));
+	if (vol > 1){
 		vol = 1;
 	}
 
@@ -109,6 +106,8 @@ function readAcc(event){
 				
 				if (!modeOneWay || (modeOneWay && last_hit == 'BACK')){
 					last_hit = 'FRONT';
+					
+					newFrontSfx.volume = vol;
 					
 				    if (newFrontSfx.paused) {
 				        newFrontSfx.play();
@@ -130,6 +129,8 @@ function readAcc(event){
 			
 				if (!modeOneWay || (modeOneWay && last_hit == 'FRONT')){
 					last_hit = 'BACK';
+					
+					newBackSfx.volume = vol;
 					
 				    if (newBackSfx.paused) {
 				        newBackSfx.play();
