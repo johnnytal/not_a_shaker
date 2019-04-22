@@ -110,8 +110,12 @@ function readAcc(event){
 				if (!modeOneWay || (modeOneWay && last_hit == 'BACK')){
 					last_hit = 'FRONT';
 					
-					newFrontSfx.stop();
-					newFrontSfx.play();
+				    if (newFrontSfx.paused) {
+				        newFrontSfx.play();
+				    }else{
+				        newFrontSfx.currentTime = 0;
+				    }
+					
 					flash(FRONT_COLOR);	
 				}	
 			}
@@ -127,8 +131,12 @@ function readAcc(event){
 				if (!modeOneWay || (modeOneWay && last_hit == 'FRONT')){
 					last_hit = 'BACK';
 					
-					newBackSfx.stop();
-					newBackSfx.play();
+				    if (newBackSfx.paused) {
+				        newBackSfx.play();
+				    }else{
+				        newBackSfx.currentTime = 0;
+				    }
+
 					flash(BACK_COLOR);
 				}
 			}
