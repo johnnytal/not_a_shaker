@@ -102,7 +102,7 @@ function readAcc(event){
 					last_hit = 'FRONT';
 					
 					try{
-						newFrontSfx.volume = vol;
+						//newFrontSfx.volume = vol;
 						newFrontSfx.play();
 					}catch(e){
 						debugTxtLastHit.text = 'Last hit: ' + last_hit + ' \n error: ' + e;
@@ -158,9 +158,7 @@ function flash(_color){
 	
 	debugTxtHitAngle.text = 'Angle at hit: ' + angle;
 	debugTxtHitAccel.text = 'Accel at hit: ' + aveAccel + '\n(X: ' + accelX + ',  Y: ' + accelY + '\n,  Z: ' + accelZ + ')';;
-	
-	
-	
+
 	debugTxtLastfiveAccels.text = 'Accels: ' + lastfiveAccels.join(', ');
 	debugTxtLastfiveAngles.text = 'Angles: ' + lastfiveAngles.join(', ');
 
