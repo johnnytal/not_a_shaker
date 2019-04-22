@@ -36,7 +36,8 @@ var shakerMain = function(game){
 	modeAbsAngle = false;
 	modeAbsAccel = false;
 	
-	frontSfx = null;
+	newFrontSfx = null;
+	newBackSfx = null;
 };
 
 shakerMain.prototype = {
@@ -101,16 +102,16 @@ function readAcc(event){
 				
 				if (!modeOneWay || (modeOneWay && last_hit == 'BACK')){
 					var vol = Math.abs(roundIt(lastfiveAccels[lastfiveAccels.length-1]));
+					last_hit = 'FRONT';
 					
 					try{
 						newFrontSfx.volume = vol;
 						newFrontSfx.play();
 					}catch(e){
-						frontSfx.volume = vol;
-						frontSfx.play();
+						debugTxtLastHit.text = 'Last hit: ' + last_hit + ' \n error: ' + e;
 					}
 					
-					last_hit = 'FRONT';
+					
 					flash(FRONT_COLOR);	
 				}	
 			}
@@ -125,16 +126,15 @@ function readAcc(event){
 			
 				if (!modeOneWay || (modeOneWay && last_hit == 'FRONT')){
 					var vol = Math.abs(roundIt(lastfiveAccels[lastfiveAccels.length-1]));
+					last_hit = 'BACK';
 					
 					try{
-						newBackSfx.volume = vol;
+						//newBackSfx.volume = vol;
 						newBackSfx.play();
 					}catch(e){
-						backSfx.volume = vol;
-						backSfx.play();
+						debugTxtLastHit.text = 'Last hit: ' + last_hit + ' \n error: ' + e;
 					}
 					
-					last_hit = 'BACK';
 					flash(BACK_COLOR);
 				}
 			}
@@ -162,7 +162,7 @@ function flash(_color){
 	debugTxtHitAngle.text = 'Angle at hit: ' + angle;
 	debugTxtHitAccel.text = 'Accel at hit: ' + aveAccel + '\n(X: ' + accelX + ',  Y: ' + accelY + '\n,  Z: ' + accelZ + ')';;
 	
-	debugTxtLastHit.text = 'Last hit: ' + last_hit;
+	
 	
 	debugTxtLastfiveAccels.text = 'Accels: ' + lastfiveAccels.join(', ');
 	debugTxtLastfiveAngles.text = 'Angles: ' + lastfiveAngles.join(', ');
