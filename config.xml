@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 	<widget id="phonegap.funtoad.shaker" version="1.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-		<name>Shaker</name>
-		<description>Shaker app for funtoad</description>
+		<name>Not a Shaker</name>
+		<description>Not a Shaker for myself</description>
 		<author email="johnnytal9@gmail.com" href="http://www.ilyichgames.com"> Johnny Tal </author>
 		<content src="index.html"/>
 		
