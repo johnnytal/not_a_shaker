@@ -35,9 +35,6 @@ var shakerMain = function(game){
 	modeOneWay = false;
 	modeAbsAngle = false;
 	modeAbsAccel = false;
-	
-	newFrontSfx = null;
-	newBackSfx = null;
 };
 
 shakerMain.prototype = {
