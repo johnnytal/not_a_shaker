@@ -11,10 +11,16 @@
 	    <script type="text/javascript" src="js/gui.js"></script>
 	</head>
 	<body style="margin: 0">
-		<input type="file" id="audio_file_front" accept="audio/*" onchange="handleFileFront(this.files)"><span>front</span><br/>
-		<input type="file" id="audio_file_back" accept="audio/*" onchange="handleFileBack(this.files)"><span>back</span>
+		<input type="file" id="audio_file_front" accept="audio/*" onchange="handleFile(this, this.files)"><span>front</span>
+		<input type="file" id="audio_file_back" accept="audio/*" onchange="handleFile(this, this.files)"><span>back</span>
+		<br/>
+		<input type="file" id="audio_file_right" accept="audio/*" onchange="handleFile(this, this.files)"><span>right</span>
+		<input type="file" id="audio_file_left" accept="audio/*" onchange="handleFile(this, this.files)"><span>left</span>
 		<audio id="newFrontSfx"/>
 		<audio id="newBackSfx"/>
+		
+		<audio id="newRightSfx"/>
+		<audio id="newLeftSfx"/>
 		<div></div>
 	</body>
 </html> 

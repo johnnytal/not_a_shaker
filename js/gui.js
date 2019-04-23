@@ -4,7 +4,7 @@ function XtraUIbuttons(){
     plus_accel_front = game.add.sprite(620, 170, 'plus');
     plus_accel_front.inputEnabled = true;
     plus_accel_front.events.onInputDown.add(function(){
-    	min_accel_front += 0.025;
+    	min_accel_front += 0.05;
     	backText.text = "Acc F: " + roundIt(min_accel_front);
     	plus_accel_front.tint = 0xf04030;
     	setTimeout(function(){plus_accel_front.tint = 0xffffff;}, 100);
@@ -13,7 +13,7 @@ function XtraUIbuttons(){
     minus_accel_front = game.add.sprite(550, 170, 'minus');
     minus_accel_front.inputEnabled = true;
     minus_accel_front.events.onInputDown.add(function(){
-    	min_accel_front -= 0.025;
+    	min_accel_front -= 0.05;
     	backText.text = "Acc F: " + roundIt(min_accel_front);
     	minus_accel_front.tint = 0xf04030;
     	setTimeout(function(){minus_accel_front.tint = 0xffffff;}, 100);
@@ -26,7 +26,7 @@ function XtraUIbuttons(){
     plus_angle_front.inputEnabled = true;
     plus_angle_front.events.onInputDown.add(function(){
     	if (!modeAbsAngle){
-    		min_angle_front += 0.025;
+    		min_angle_front += 0.05;
     	}
     	else{
     		min_abs_angle_front += 0.05;
@@ -40,7 +40,7 @@ function XtraUIbuttons(){
     minus_angle_front.inputEnabled = true;
     minus_angle_front.events.onInputDown.add(function(){
     	if (!modeAbsAngle){
-    		min_angle_front -= 0.025;
+    		min_angle_front -= 0.05;
     	}
     	else{
     		min_abs_angle_front -= 0.05;
@@ -58,7 +58,7 @@ function XtraUIbuttons(){
     plus2 = game.add.sprite(320, 170, 'plus');
     plus2.inputEnabled = true;
     plus2.events.onInputDown.add(function(){
-    	min_accel_back += 0.025;
+    	min_accel_back += 0.05;
     	backText2.text = "Acc B: " + roundIt(min_accel_back);
     	plus2.tint = 0xf04030;
     	setTimeout(function(){plus2.tint = 0xffffff;}, 100);
@@ -67,7 +67,7 @@ function XtraUIbuttons(){
     minus2 = game.add.sprite(320 - DISTANCE, 170, 'minus');
     minus2.inputEnabled = true;
     minus2.events.onInputDown.add(function(){
-    	min_accel_back -= 0.025;
+    	min_accel_back -= 0.05;
     	backText2.text = "Acc B: " + roundIt(min_accel_back);
     	minus2.tint = 0xf04030;
     	setTimeout(function(){minus2.tint = 0xffffff;}, 100);
@@ -80,7 +80,7 @@ function XtraUIbuttons(){
     plusD2.inputEnabled = true;
     plusD2.events.onInputDown.add(function(){
     	if (!modeAbsAngle){
-    		min_angle_back += 0.025;
+    		min_angle_back += 0.05;
     	}
     	else{
     		min_abs_angle_back += 0.05;
@@ -94,7 +94,7 @@ function XtraUIbuttons(){
     minusD2.inputEnabled = true;
     minusD2.events.onInputDown.add(function(){
 		if (!modeAbsAngle){
-    		min_angle_back -= 0.025;
+    		min_angle_back -= 0.05;
     	}
     	else{
     		min_abs_angle_back -= 0.05;
@@ -198,7 +198,7 @@ function XtraUIbuttons(){
        
     //////
     
-    modeAbsAccelBtn = game.add.sprite(450, 330, 'minus');
+    modeAbsAccelBtn = game.add.sprite(320, 260, 'minus');
     modeAbsAccelBtn.scale.set(.8,.8);
     modeAbsAccelBtn.tint = 0xf42a1a;
     modeAbsAccelBtn.inputEnabled = true;
@@ -215,6 +215,6 @@ function XtraUIbuttons(){
     	absAccel.text = "Abs accel: " + modeAbsAccel;
     }, this);
     
-    absAccel = game.add.text(415, 385, "Abs accel: " + modeAbsAccel,
+    absAccel = game.add.text(285, 315, "Abs accel: " + modeAbsAccel,
     {font: '16px', fill: 'red'});
 }

@@ -13,11 +13,11 @@ var shakerMain = function(game){
 	lastfiveAccels = [];
 	lastfiveAngles = [];
 
-	min_accel_front = 0.8;
-	min_accel_back = 0.35;
+	min_accel_front = 1.1;
+	min_accel_back = 0.6;
 
-	min_angle_front = 0.35;
-	min_angle_back = 0;
+	min_angle_front = 2.9;
+	min_angle_back = 2.15;
 	
 	min_abs_angle_front = 0;
 	min_abs_angle_back = 0;
@@ -25,7 +25,7 @@ var shakerMain = function(game){
 	min_abs_accel_front = 0;
 	min_abs_accel_back = 0;
 	
-	last_hit = 'FRONT';
+	last_hit = '';
 	
 	min_time = 180;
 	
@@ -43,9 +43,6 @@ shakerMain.prototype = {
     create: function(){
 		game.stage.backgroundColor = DEFAULT_COLOR;
 
-		backSfx = game.add.audio('back');
-		frontSfx = game.add.audio('front');
-
 	    debugTxtAngle = game.add.text(20, 15, "Angle" , {font: '22px', fill: 'darkgreen'});
 	    debugTxtAccel = game.add.text(20, 45, "Accel" , {font: '22px', fill: 'darkgreen'});
  
@@ -53,9 +50,6 @@ shakerMain.prototype = {
 	    debugTxtHitAccel = game.add.text(20, 115, "Accel at hit" , {font: '22px', fill: 'black'});
 	    
 	    debugTxtLastHit = game.add.text(20, 215, "last hit" , {font: '22px', fill: 'blue'});
-	    
-	    debugTxtLastfiveAccels = game.add.text(10, 335, "Accels:" ,{font: '22px', fill: 'darkblue'});
-	    debugTxtLastfiveAngles = game.add.text(10, 365, "Angles:" ,{font: '22px', fill: 'darkblue'});
 
 		try{window.addEventListener('deviceorientation', readAngle);} catch(e){}
 		try{window.addEventListener('devicemotion', readAcc);} catch(e){}
@@ -91,11 +85,9 @@ function readAcc(event){
 	aveAccel = roundIt((accelX + accelY + accelZ) / 3);
 	
 	vol = roundIt(Math.abs(aveAccel / 5));
-	if (vol > 1){
-		vol = 1;
-	}
+	if (vol > 1) vol = 1;
 
-	if (!frontSfx.isPlaying && !backSfx.isPlaying && reset){
+	if (reset){
 
 		if (
 			!modeAbsAccel && Math.abs(lastfiveAccels[lastfiveAccels.length-1] - lastfiveAccels[lastfiveAccels.length-2]) > min_accel_front ||
@@ -104,7 +96,7 @@ function readAcc(event){
 			if (!modeAbsAngle && lastfiveAngles[lastfiveAngles.length-1] - lastfiveAngles[lastfiveAngles.length-2] > min_angle_front || 
 			modeAbsAngle && angle > min_abs_angle_front){
 				
-				if (!modeOneWay || (modeOneWay && last_hit == 'BACK')){
+				if (!modeOneWay || (modeOneWay && !last_hit == 'FRONT')){
 					last_hit = 'FRONT';
 					
 					newFrontSfx.volume = vol;
@@ -127,7 +119,7 @@ function readAcc(event){
 			if (!modeAbsAngle && lastfiveAngles[lastfiveAngles.length-1] - lastfiveAngles[lastfiveAngles.length-2] < -min_angle_back ||
 			modeAbsAngle && angle < min_abs_angle_back){
 			
-				if (!modeOneWay || (modeOneWay && last_hit == 'FRONT')){
+				if (!modeOneWay || (modeOneWay && !last_hit == 'BACK')){
 					last_hit = 'BACK';
 					
 					newBackSfx.volume = vol;
@@ -165,10 +157,7 @@ function flash(_color){
 	debugTxtLastHit.text = last_hit + ' | ' + vol;
 	
 	debugTxtHitAngle.text = 'Angle at hit: ' + angle;
-	debugTxtHitAccel.text = 'Accel at hit: ' + aveAccel + '\n(X: ' + accelX + ',  Y: ' + accelY + '\n,  Z: ' + accelZ + ')';;
-
-	debugTxtLastfiveAccels.text = 'Accels: ' + lastfiveAccels.join(', ');
-	debugTxtLastfiveAngles.text = 'Angles: ' + lastfiveAngles.join(', ');
+	debugTxtHitAccel.text = 'Accel at hit: ' + aveAccel + '\n(X: ' + accelX + ',  Y: ' + accelY + '\n,  Z: ' + accelZ + ')';
 
 	game.stage.backgroundColor = _color;
 
@@ -190,7 +179,7 @@ function roundIt(_num){
 	return Math.round(_num * 1000) / 1000;
 }
 
-function handleFileFront(fileObj) {
+function handleFile(_what, fileObj) {
 	var fileReader  = new FileReader;
 	
 	fileReader.onload = function(){
@@ -200,24 +189,22 @@ function handleFileFront(fileObj) {
 	
 	url = URL.createObjectURL(fileObj[0]); 
 	
-	newFrontSfx.src = url;
-}
-
-function handleFileBack(fileObj) {
-	var fileReader  = new FileReader;
-	
-	fileReader.onload = function(){
-	   var arrayBuffer = this.result;
-	};
-	fileReader.readAsArrayBuffer(fileObj[0]);
-	
-	url = URL.createObjectURL(fileObj[0]); 
-	
-	newBackSfx.src = url;
+	if (_what.id == 'audio_file_front'){
+		newFrontSfx.src = url;
+	}
+	else if (_what.id == 'audio_file_back'){
+		newBackSfx.src = url;
+	}
+	else if (_what.id == 'audio_file_right'){
+		newRightSfx.src = url;
+	}
+	else if (_what.id == 'audio_file_left'){
+		newLeftSfx.src = url;
+	}
 }
 
 function initPlugIns(){
     try{window.plugins.insomnia.keepAwake();} catch(e){} // keep awake
     try{StatusBar.hide();} catch(e){} // hide status bar
-    try{window.androidVolume.setMusic(10, false);} catch(e){} // max media volume
+    try{window.androidVolume.setMusic(30, false);} catch(e){} // max media volume
 }
